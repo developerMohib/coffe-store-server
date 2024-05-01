@@ -24,7 +24,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
 
     // build a database and Connect with it 
     const coffeeData = client.db("coffeeDB");
@@ -79,9 +79,11 @@ async function run() {
       const result = await coffeeCollection.deleteOne(query);
       res.send(result)
     })
-
+    app.get('/health',(req, res) => {
+      res.send('Coffe server health has been coming soon')
+    })
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
@@ -97,5 +99,5 @@ app.get('/',(req, res) => {
 })
 
 app.listen(port,() => {
-  console.log(`Coffee Server is ${port}`)
+  console.log(`coffee Server is ready ${port}`)
 })
